@@ -1,0 +1,13 @@
+[package]
+name = "csr-example"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+getrandom = { version = "0.2.10", features = ["js"], optional = true }
+leptos = { version = "0.5.2", features = ["csr", "nightly"] }
+leptos_animated_for = { path = "../.." }
+rand = "0.8.5"
+
+[lints.clippy]
+pedantic = "warn"
