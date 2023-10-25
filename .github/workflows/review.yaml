@@ -1,0 +1,33 @@
+name: Review
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches: "*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+
+  quality:
+    name: Source code quality
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - name: Formatting
+        run: just fmt-check
+      - name: Lint
+        run: just lint

@@ -1,0 +1,24 @@
+name: Setup
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Cargo cache setup
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/
+          ~/.rustup/toolchains/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: ${{ runner.os }}-cargo-
+
+    - name: Just setup
+      shell: bash
+      run: cargo install just@1.15.0
+
+    - name: Leptosfmt setup
+      shell: bash
+      run: cargo install leptosfmt@0.1.17
