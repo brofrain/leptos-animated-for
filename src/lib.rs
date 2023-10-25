@@ -9,14 +9,28 @@ use std::{
 };
 
 use leptos::{
-    component, leptos_dom::Each, spawn_local, update, with, IntoView, MaybeProp, StoredValue, View,
+    component,
+    leptos_dom::Each,
+    spawn_local,
+    update,
+    with,
+    IntoView,
+    MaybeProp,
+    StoredValue,
+    View,
 };
 use web_sys::DomRect;
 
-use crate::utils::{check_if_moved_and_lock_previous_position, prepare_leave};
-
-use crate::animator::Animator;
-use crate::utils::{extract_el_from_view, force_reflow, next_tick};
+use crate::{
+    animator::Animator,
+    utils::{
+        check_if_moved_and_lock_previous_position,
+        extract_el_from_view,
+        force_reflow,
+        next_tick,
+        prepare_leave,
+    },
+};
 
 fn use_entering_children<Item, ChildFn, Child, KeyFn, Key>(
     key_fn: StoredValue<KeyFn>,
@@ -42,7 +56,8 @@ where
 
     let el_per_key = StoredValue::new(HashMap::new());
 
-    let animator = Animator::new(enter_from_class, enter_class, move_class, leave_class);
+    let animator =
+        Animator::new(enter_from_class, enter_class, move_class, leave_class);
 
     let initial_children_mounted = StoredValue::new(false);
     spawn_local(async move {
@@ -76,6 +91,7 @@ where
     })
 }
 
+#[allow(clippy::module_name_repetitions)]
 #[component(transparent)]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
@@ -111,7 +127,8 @@ where
     let items_fn = move || {
         let items = Vec::from_iter(each());
 
-        let keys = with!(|key_fn| items.iter().map(key_fn).collect::<HashSet<_>>());
+        let keys =
+            with!(|key_fn| items.iter().map(key_fn).collect::<HashSet<_>>());
 
         let mut leaving_els_parent = None;
         let mut leaving_els_with_rects = Vec::new();

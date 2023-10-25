@@ -101,4 +101,3 @@ pub fn check_if_moved_and_lock_previous_position(
 
     false
 }
-

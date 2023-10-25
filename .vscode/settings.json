@@ -1,4 +1,5 @@
 {
+  "rust-analyzer.check.command": "clippy",
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": ["component"]
   },

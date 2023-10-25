@@ -6,11 +6,15 @@ use wasm_bindgen::{prelude::Closure, JsCast};
 use super::untracked_classes::UntrackedClasses;
 use crate::animated_el::AnimatedEl;
 
-fn set_cb_on_transition_end(el: &web_sys::HtmlElement, cb: &Rc<impl Fn() + 'static>) {
-    let closure = Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(Box::new({
-        let cb = Rc::clone(cb);
-        move |_| cb()
-    }));
+fn set_cb_on_transition_end(
+    el: &web_sys::HtmlElement,
+    cb: &Rc<impl Fn() + 'static>,
+) {
+    let closure =
+        Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(Box::new({
+            let cb = Rc::clone(cb);
+            move |_| cb()
+        }));
 
     el.set_ontransitionend(Some(closure.as_ref().unchecked_ref()));
     el.set_onanimationend(Some(closure.as_ref().unchecked_ref()));
@@ -40,7 +44,12 @@ where
         raw_leave: MaybeProp<String>,
     ) -> Self {
         Self {
-            classes: UntrackedClasses::new(raw_enter_from, raw_enter, raw_move, raw_leave),
+            classes: UntrackedClasses::new(
+                raw_enter_from,
+                raw_enter,
+                raw_move,
+                raw_leave,
+            ),
             transition_end_cbs: StoredValue::new(Vec::new()),
             enter_from_class_per_key: StoredValue::new(HashMap::new()),
         }

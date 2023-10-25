@@ -16,7 +16,9 @@ fn use_class_memo(class: MaybeProp<String>) -> Memo<Classes> {
     Memo::new(move |_| {
         class
             .get()
-            .map(|class| class.split_whitespace().map(ToOwned::to_owned).collect())
+            .map(|class| {
+                class.split_whitespace().map(ToOwned::to_owned).collect()
+            })
             .unwrap_or_default()
     })
 }

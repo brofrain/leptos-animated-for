@@ -8,3 +8,9 @@ futures = "0.3.28"
 leptos = { version = "0.5.2" }
 wasm-bindgen = { version = "0.2.87" }
 web-sys = { version = "0.3.64", features = ["DomRect", "HtmlElement"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+pedantic = "warn"

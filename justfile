@@ -2,7 +2,6 @@
 _fmt-rustfmt flag='':
     #!/usr/bin/env sh
     (
-        rustfmt build.rs {{ flag }} &
         for f in `find src -name '*.rs'`; do
             rustfmt $f {{ flag }} &
         done
@@ -38,9 +37,9 @@ fmt-check:
     just _fmt-check-leptosfmt
     just _fmt-check-justfile
 
-# Performs all lints
+# Lints source with Clippy
 lint:
-    cargo clippy -- -D clippy::pedantic -D warnings
+    cargo clippy -- -D warnings
 
 _vscode-fmt:
     # Using `leptosfmt --stdin --rustfmt` seems to add redundant newlines
