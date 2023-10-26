@@ -50,13 +50,15 @@ view! {
         key=|item| item.id
         children=|item| item.view
         enter_from_class="opacity-0"
-        enter_class="duration-1000"
-        move_class="duration-1000"
-        leave_class="opacity-0 duration-1000"
+        enter_class="duration-800"
+        move_class="duration-1200"
+        leave_class="opacity-0 duration-500"
         appear=true
     />
 }
 ```
+
+Check out `examples` directory for a complete code.
 
 ## Known issues
 
