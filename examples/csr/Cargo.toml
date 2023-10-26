@@ -11,3 +11,4 @@ rand = "0.8.5"
 
 [lints.clippy]
 pedantic = "warn"
+module-name-repetitions = "allow"

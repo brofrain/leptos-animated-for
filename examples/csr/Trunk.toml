@@ -1,0 +1,9 @@
+[serve]
+address = "127.0.0.1"
+port = 8080
+open = false
+no_autoreload = false
+
+[watch]
+watch = ["index.html", "src"]
+ignore = []
