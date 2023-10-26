@@ -1,14 +1,14 @@
 # `<AnimatedFor />` component for [Leptos](https://leptos.dev/)
 
-> Animation tool for insertions, removals, and order changes of grouped elements and components using [FLIP](https://aerotwist.com/blog/flip-your-animations/) technique.
+[FLIP](https://aerotwist.com/blog/flip-your-animations/) animations for element and component groups inspired by Vue's [`<TransitionGroup>`](https://vuejs.org/guide/built-ins/transition-group.html).
 
 <p align="center">
     <img width="400" src="docs/preview.gif">
 </p>
 
-This crate exports a component similar to Leptos' built-in `<For />` with additional properties for applying specific CSS classes to nodes that:
+This crate exports a component similar to Leptos' built-in [`<For />`](https://docs.rs/leptos/latest/leptos/fn.For.html) with additional properties for applying specific CSS classes to nodes that:
 
-- are initially rendered
+- are rendered for the first time
 
 - represent already removed items
 
@@ -35,7 +35,7 @@ view! {
 
 - `enter_class` - appended to entering elements. The class is removed on a [transitionend](https://developer.mozilla.org/en-US/docs/Web/API/Element/transitionend_event) or [animationend](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationend_event) event, or if move transition is triggered before this one ends.
 
-- `move_class` - active class for elements moving to their new positions. The class is removed on a `transitionend` or `animationend` event (same as enter_class). Reordering items again before they reach their destinations will stagger the animation and override the target positions.
+- `move_class` - active class for elements moving to their new positions. The class is removed on a `transitionend` or `animationend` event (same as `enter_class`). Reordering items again before they reach their destinations will stagger the animation and overwrite the target positions.
 
 - `leave_class` - removed items have their elements present in the DOM with this class applied. The nodes are removed on a `transitionend` or `animationend` event.
 

@@ -91,17 +91,19 @@ where
     })
 }
 
+/// List-rendering component utilizing FLIP position transitions.
+/// Read the full guide [here](https://github.com/brofrain/leptos-animated-for).
 #[allow(clippy::module_name_repetitions)]
 #[component(transparent)]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
     key: KeyFn,
     children: ChildFn,
-    #[prop(optional, into)] appear: Option<bool>,
-    #[prop(optional, into)] move_class: MaybeProp<String>,
-    #[prop(optional, into)] enter_class: MaybeProp<String>,
     #[prop(optional, into)] enter_from_class: MaybeProp<String>,
+    #[prop(optional, into)] enter_class: MaybeProp<String>,
+    #[prop(optional, into)] move_class: MaybeProp<String>,
     #[prop(optional, into)] leave_class: MaybeProp<String>,
+    #[prop(optional, into)] appear: Option<bool>,
 ) -> impl IntoView
 where
     Items: Fn() -> ItemIter + 'static,

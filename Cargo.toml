@@ -4,7 +4,7 @@ version = "0.0.1"
 edition = "2021"
 repository = "https://github.com/brofrain/leptos-animated-for"
 license = "MIT"
-description = "`<AnimatedFor />` component using FLIP transitions for Leptos"
+description = "`<AnimatedFor />` component utilizing FLIP position transitions for Leptos"
 keywords = ["leptos", "animations", "dom", "web", "wasm"]
 
 [dependencies]
