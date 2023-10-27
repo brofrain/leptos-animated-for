@@ -12,7 +12,7 @@ This crate exports a component similar to Leptos' built-in [`<For />`](https://d
 
 - represent already removed items
 
-- have their positions changed due to reorder or other elements being added / removed.
+- have their positions changed due to reorder or other elements being added / removed
 
 Each node has to be uniquely keyed, since the original `<For />`'s logic is used under the hood. Additionally, animations will break for unstable or duplicate keys. You can refer to the official [`<For />` guide](https://leptos-rs.github.io/leptos/view/04_iteration.html#dynamic-rendering-with-the-for-component) for more detailed information.
 
