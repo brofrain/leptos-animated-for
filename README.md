@@ -67,9 +67,13 @@ Check out `examples` directory for a complete code.
   To prevent the glitch from occurring, make sure that the transition-related properties are applied only via `enter_class`, `move_class`, or `leave_class` props. In case you need the transitions for e.g. hover animations, you can wrap the elements in additional `<div>` nodes, so `<AnimatedFor />` can work on them instead.\
   As of writing this, I'm not sure how to fix this, but I will investigate this in the future.
 
+- Elements rendered on server-side have no `enter_from_class` applied initially. In combination with `appear` prop, the nodes may be visible for a short time before the enter animation starts.\
+  If you care about the initial entering transition, make sure that the list is rendered in the browser.
+
 ## TODO
 
 - [ ] tests
+- [ ] investigate the known issues
 - [ ] optional properties for explicit animation duration
 - [ ] optional bool prop for assigning a static `z-index` to each child, so triggering a move transition before the previous one has finished doesn't cause overlapping elements to be chaotically moved from front to back and vice versa.
 
