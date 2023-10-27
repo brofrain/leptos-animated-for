@@ -118,7 +118,6 @@ fn Home() -> impl IntoView {
                     enter_class="duration-1000"
                     move_class="duration-1000"
                     leave_class="opacity-0 duration-1000"
-                    appear=true
                 />
 
             </div>

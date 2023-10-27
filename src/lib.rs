@@ -1,39 +1,54 @@
-mod animated_el;
-mod animator;
-mod untracked_classes;
-mod utils;
+cfg_if::cfg_if! {
+    if #[cfg(feature = "ssr")] {
+        use std::hash::Hash;
 
-use std::{
-    collections::{HashMap, HashSet},
-    hash::Hash,
-};
+        use leptos::{
+            component,
+            leptos_dom::Each,
+            tracing,
+            IntoView,
+            MaybeProp,
+        };
+    } else {
+        mod animated_el;
+        mod animator;
+        mod untracked_classes;
+        mod utils;
 
-#[cfg(any(feature = "ssr", feature = "hydrate"))]
-use leptos::tracing;
-use leptos::{
-    component,
-    leptos_dom::Each,
-    spawn_local,
-    update,
-    with,
-    IntoView,
-    MaybeProp,
-    StoredValue,
-    View,
-};
-use web_sys::DomRect;
+        use std::{
+            collections::{HashMap, HashSet},
+            hash::Hash,
+        };
 
-use crate::{
-    animator::Animator,
-    utils::{
-        check_if_moved_and_lock_previous_position,
-        extract_el_from_view,
-        force_reflow,
-        next_tick,
-        prepare_leave,
-    },
-};
+        #[cfg(feature = "hydrate")]
+        use leptos::tracing;
+        use leptos::{
+            component,
+            leptos_dom::Each,
+            spawn_local,
+            update,
+            with,
+            IntoView,
+            MaybeProp,
+            StoredValue,
+            View,
+        };
+        use web_sys::DomRect;
 
+        use crate::{
+            animator::Animator,
+            utils::{
+                check_if_moved_and_lock_previous_position,
+                extract_el_from_view,
+                force_reflow,
+                next_tick,
+                prepare_leave,
+            },
+        };
+    }
+}
+
+#[cfg(not(feature = "ssr"))]
 fn use_entering_children<Item, ChildFn, Child, KeyFn, Key>(
     key_fn: StoredValue<KeyFn>,
     children_fn: ChildFn,
@@ -96,6 +111,7 @@ where
 /// List-rendering component utilizing FLIP position transitions.
 /// Read the full guide [here](https://github.com/brofrain/leptos-animated-for).
 #[allow(clippy::module_name_repetitions)]
+#[allow(unused_variables)]
 #[component(transparent)]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
