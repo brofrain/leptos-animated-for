@@ -20,13 +20,13 @@ const INITIAL_ITEM_COUNT: usize = 40;
 
 #[component]
 fn Home() -> impl IntoView {
-    let last_added_item = StoredValue::new(INITIAL_ITEM_COUNT - 1);
+    let next_item = StoredValue::new(INITIAL_ITEM_COUNT);
 
     let items = RwSignal::new((0..INITIAL_ITEM_COUNT).collect::<Vec<_>>());
 
     let create_new_item = Callback::new(move |()| {
-        let item = last_added_item();
-        last_added_item.set_value(item + 1);
+        let item = next_item();
+        next_item.set_value(item + 1);
         item
     });
 
