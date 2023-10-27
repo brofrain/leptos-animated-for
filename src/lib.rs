@@ -20,8 +20,9 @@ cfg_if::cfg_if! {
             hash::Hash,
         };
 
-        #[cfg(feature = "hydrate")]
+        #[allow(unused_imports)]
         use leptos::tracing;
+
         use leptos::{
             component,
             leptos_dom::Each,

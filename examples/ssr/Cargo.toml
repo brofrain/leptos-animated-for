@@ -32,7 +32,6 @@ http = "0.2.9"
 hydrate = [
   "dep:getrandom",
   "leptos/hydrate",
-  "leptos_animated_for/hydrate",
   "leptos_meta/hydrate",
   "leptos_router/hydrate",
 ]

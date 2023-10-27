@@ -1,6 +1,6 @@
 [package]
 name = "leptos_animated_for"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 repository = "https://github.com/brofrain/leptos-animated-for"
 license = "MIT"
@@ -16,10 +16,6 @@ web-sys = { version = "0.3.64", features = ["DomRect"] }
 
 [features]
 ssr = []
-hydrate = []
-
-[package.metadata.cargo-all-features]
-skip_feature_sets = [["ssr", "hydrate"]]
 
 [lints.rust]
 unsafe_code = "forbid"
