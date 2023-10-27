@@ -8,6 +8,8 @@ use std::{
     hash::Hash,
 };
 
+#[cfg(any(feature = "ssr", feature = "hydrate"))]
+use leptos::tracing;
 use leptos::{
     component,
     leptos_dom::Each,
@@ -114,101 +116,114 @@ where
     KeyFn: Fn(&Item) -> Key + 'static,
     Item: 'static,
 {
-    let key_fn = StoredValue::new(key);
+    #[cfg(feature = "ssr")]
+    {
+        Each::new(each, key, children)
+    }
 
-    let (el_per_key, animator, children_fn) = use_entering_children(
-        key_fn,
-        children,
-        appear,
-        move_class,
-        enter_class,
-        enter_from_class,
-        leave_class,
-    );
+    #[cfg(not(feature = "ssr"))]
+    {
+        let key_fn = StoredValue::new(key);
 
-    let items_fn = move || {
-        let items = Vec::from_iter(each());
+        let (el_per_key, animator, children_fn) = use_entering_children(
+            key_fn,
+            children,
+            appear,
+            move_class,
+            enter_class,
+            enter_from_class,
+            leave_class,
+        );
 
-        let keys =
-            with!(|key_fn| items.iter().map(key_fn).collect::<HashSet<_>>());
+        let items_fn = move || {
+            let items = Vec::from_iter(each());
 
-        let mut leaving_els_parent = None;
-        let mut leaving_els_with_rects = Vec::new();
+            let keys = with!(|key_fn| items
+                .iter()
+                .map(key_fn)
+                .collect::<HashSet<_>>());
 
-        let mut before_render_el_rect_per_key = HashMap::<Key, DomRect>::new();
+            let mut leaving_els_parent = None;
+            let mut leaving_els_with_rects = Vec::new();
 
-        update!(|el_per_key| {
-            let mut keys_to_remove = Vec::new();
+            let mut before_render_el_rect_per_key =
+                HashMap::<Key, DomRect>::new();
 
-            for (key, el) in el_per_key.iter() {
-                if keys.contains(key) {
-                    let rect = el.get_bounding_client_rect();
-                    before_render_el_rect_per_key.insert(key.clone(), rect);
-                } else {
-                    keys_to_remove.push(key.clone());
-                }
-            }
+            update!(|el_per_key| {
+                let mut keys_to_remove = Vec::new();
 
-            for key in keys_to_remove {
-                let el = el_per_key.remove(&key).unwrap();
-
-                if leaving_els_parent.is_none() {
-                    leaving_els_parent = Some(
-                        el.parent_element()
-                            .expect("children to have parent element"),
-                    );
-                }
-
-                let rect = el.get_bounding_client_rect();
-                leaving_els_with_rects.push((el, rect));
-            }
-        });
-
-        spawn_local(async move {
-            animator.clear_transitions();
-
-            if let Some(parent) = leaving_els_parent {
-                prepare_leave(&parent, &leaving_els_with_rects);
-            }
-
-            let mut moved_el_keys = Vec::new();
-
-            with!(|el_per_key| {
-                for (key, old_pos) in &before_render_el_rect_per_key {
-                    let el = el_per_key.get(key).unwrap();
-
-                    if check_if_moved_and_lock_previous_position(el, old_pos) {
-                        moved_el_keys.push(key.clone());
+                for (key, el) in el_per_key.iter() {
+                    if keys.contains(key) {
+                        let rect = el.get_bounding_client_rect();
+                        before_render_el_rect_per_key.insert(key.clone(), rect);
+                    } else {
+                        keys_to_remove.push(key.clone());
                     }
                 }
-            });
 
-            force_reflow();
+                for key in keys_to_remove {
+                    let el = el_per_key.remove(&key).unwrap();
 
-            if !leaving_els_with_rects.is_empty() {
-                for (el, ..) in leaving_els_with_rects {
-                    animator.start_leave(&el);
-                }
-            }
+                    if leaving_els_parent.is_none() {
+                        leaving_els_parent = Some(
+                            el.parent_element()
+                                .expect("children to have parent element"),
+                        );
+                    }
 
-            if moved_el_keys.is_empty() {
-                return;
-            }
-
-            with!(|el_per_key| {
-                for key in moved_el_keys {
-                    let el = el_per_key.get(&key).unwrap();
-                    animator.start_move(el);
+                    let rect = el.get_bounding_client_rect();
+                    leaving_els_with_rects.push((el, rect));
                 }
             });
-        });
 
-        items
-    };
+            spawn_local(async move {
+                animator.clear_transitions();
 
-    Each::new(
-        items_fn,
-        move |item| with!(|key_fn| key_fn(item)),
-        children_fn,
-    )
+                if let Some(parent) = leaving_els_parent {
+                    prepare_leave(&parent, &leaving_els_with_rects);
+                }
+
+                let mut moved_el_keys = Vec::new();
+
+                with!(|el_per_key| {
+                    for (key, old_pos) in &before_render_el_rect_per_key {
+                        let el = el_per_key.get(key).unwrap();
+
+                        if check_if_moved_and_lock_previous_position(
+                            el, old_pos,
+                        ) {
+                            moved_el_keys.push(key.clone());
+                        }
+                    }
+                });
+
+                force_reflow();
+
+                if !leaving_els_with_rects.is_empty() {
+                    for (el, ..) in leaving_els_with_rects {
+                        animator.start_leave(&el);
+                    }
+                }
+
+                if moved_el_keys.is_empty() {
+                    return;
+                }
+
+                with!(|el_per_key| {
+                    for key in moved_el_keys {
+                        let el = el_per_key.get(&key).unwrap();
+                        animator.start_move(el);
+                    }
+                });
+            });
+
+            items
+        };
+
+        Each::new(
+            items_fn,
+            move |item| with!(|key_fn| key_fn(item)),
+            children_fn,
+        )
+    }
 }

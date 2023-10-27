@@ -1,0 +1,1 @@
+# TailwindCSS SSR example

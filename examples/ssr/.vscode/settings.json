@@ -1,0 +1,8 @@
+{
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.cargo.features": ["hydrate"],
+  "rust-analyzer.procMacro.ignored": {
+    "leptos_macro": ["component"]
+  },
+  "rust-analyzer.rustfmt.overrideCommand": ["just", "_vscode-fmt"]
+}

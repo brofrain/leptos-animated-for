@@ -41,7 +41,7 @@ view! {
 
 - `appear` - if true, the enter transition triggers for all children on initial `<AnimatedFor />` render.
 
-Example usage with [Tailwind CSS](https://tailwindcss.com/):
+Example usage with [TailwindCSS](https://tailwindcss.com/):
 
 ```rs
 view! {
