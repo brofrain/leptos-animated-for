@@ -14,14 +14,16 @@ This crate exports a component similar to Leptos' built-in [`<For />`](https://d
 
 - have their positions changed due to reorder or other elements being added / removed.
 
+Each node has to be uniquely keyed, since the original `<For />`'s logic is used under the hood. Additionally, animations will break for unstable or duplicate keys. You can refer to the official [`<For />` guide](https://leptos-rs.github.io/leptos/view/04_iteration.html#dynamic-rendering-with-the-for-component) for more detailed information.
+
 ## Usage
 
 ```rs
 view! {
     <AnimatedFor
         each=items
-        key=|item| item.id
-        children=|item| item.view
+        key=|item| item.unique_key
+        children=|item| view! { /* ... */ }
         enter_from_class="before-enter-animation"
         enter_class="enter-animation"
         move_class="move-animation"
@@ -35,9 +37,9 @@ view! {
 
 - `enter_class` - appended to entering elements. The class is removed on a [transitionend](https://developer.mozilla.org/en-US/docs/Web/API/Element/transitionend_event) or [animationend](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationend_event) event, or if move transition is triggered before this one ends.
 
-- `move_class` - active class for elements moving to their new positions. The class is removed on a `transitionend` or `animationend` event (same as `enter_class`). Reordering items again before they reach their destinations will stagger the animation and overwrite the target positions.
+- `move_class` - active class for elements moving to their new positions. The class is removed on a `transitionend` or `animationend` event (same as `enter_class`). Reordering items again before they reach their destinations will overwrite the target positions.
 
-- `leave_class` - removed items have their elements present in the DOM with this class applied. The nodes are removed on a `transitionend` or `animationend` event.
+- `leave_class` - removed items have their "zombie" elements present in the DOM with this class applied. The nodes are finally deleted on a `transitionend` or `animationend` event.
 
 - `appear` - if true, the enter transition triggers for all children on initial `<AnimatedFor />` render.
 
@@ -68,14 +70,16 @@ Check out `examples` directory for a complete code.
   As of writing this, I'm not sure how to fix this, but I will investigate this in the future.
 
 - Elements rendered on server-side have no `enter_from_class` applied initially. In combination with `appear` prop, the nodes may be visible for a short time before the enter animation starts.\
-  If you care about the initial entering transition, make sure that the list is rendered in the browser.
+  If you care about the initial entering transition, make sure that the list is rendered only in the browser.
 
 ## TODO
 
-- [ ] tests
-- [ ] investigate the known issues
-- [ ] optional properties for explicit animation duration
-- [ ] optional bool prop for assigning a static `z-index` to each child, so triggering a move transition before the previous one has finished doesn't cause overlapping elements to be chaotically moved from front to back and vice versa.
+- [ ] Tests
+- [ ] Investigate the known issues
+- [ ] Detect duplicate keys for better developer experience
+- [ ] Add ability to define custom handlers when an element enters "before enter" / "enter" / "move" / "leave" state
+- [ ] Optional properties for explicit animation durations
+- [ ] Optional bool prop for assigning a static `z-index` to each child, so triggering a move transition before the previous one has finished doesn't cause overlapping elements to be chaotically moved from front to back and vice versa.
 
 ## License
 
