@@ -27,7 +27,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
-      - name: Formatting
-        run: just fmt-check
-      - name: Lint
-        run: just lint
+      - run: just ci

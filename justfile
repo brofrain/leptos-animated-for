@@ -10,7 +10,7 @@ _fmt-rustfmt flag='':
 
 # Formats Leptos components using leptosfmt
 _fmt-leptosfmt flag='':
-    leptosfmt src/components/**/*.rs {{ flag }}
+    leptosfmt src/**/*.rs {{ flag }}
 
 # Formats justfile
 _fmt-justfile:
@@ -37,9 +37,30 @@ fmt-check:
     just _fmt-check-leptosfmt
     just _fmt-check-justfile
 
+# Checks examples formatting
+fmt-check-examples:
+    #!/usr/bin/env sh
+    (cd examples/csr && just _fmt-check-rustfmt)
+    (cd examples/csr && just _fmt-check-leptosfmt)
+    (cd examples/ssr && just _fmt-check-rustfmt)
+    (cd examples/ssr && just _fmt-check-leptosfmt)
+
 # Lints source with Clippy
 lint:
     cargo clippy -- -D warnings
+
+# Lints examples with Clippy
+lint-examples:
+    #!/usr/bin/env sh
+    (cd examples/csr && cargo clippy -- -D warnings)
+    (cd examples/ssr && cargo clippy --features ssr -- -D warnings)
+    (cd examples/ssr && cargo clippy --lib --features hydrate -- -D warnings)
+
+ci:
+    just fmt-check
+    just lint
+    just fmt-check-examples
+    just lint-examples
 
 _vscode-fmt:
     # Using `leptosfmt --stdin --rustfmt` seems to add redundant newlines

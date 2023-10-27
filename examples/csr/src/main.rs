@@ -26,7 +26,6 @@ struct Item {
 
 const INITIAL_ITEM_COUNT: usize = 40;
 
-#[allow(clippy::too_many_lines)]
 #[component]
 fn App() -> impl IntoView {
     let last_added_item_id = StoredValue::new(0);
