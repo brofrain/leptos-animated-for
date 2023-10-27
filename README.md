@@ -62,6 +62,10 @@ view! {
 
 Check out `examples` directory for a complete code.
 
+### SSR support
+
+You need to utilize `ssr` and `hydrate` features for the crate to work properly in a SSR project. See the example `Cargo.toml` [configuration](https://github.com/brofrain/leptos-animated-for/blob/main/examples/ssr/Cargo.toml).
+
 ## Known issues
 
 - Given a child element with always present `transition` or `transition-duration` style property, move transition breaks if triggered before the previous move transition has finished.\
