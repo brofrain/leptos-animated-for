@@ -20,6 +20,7 @@ cfg_if::cfg_if! {
             hash::Hash,
         };
 
+        #[cfg(debug_assertions)]
         #[allow(unused_imports)]
         use leptos::tracing;
 
