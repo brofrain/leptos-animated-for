@@ -712,7 +712,7 @@ dependencies = [
 
 [[package]]
 name = "leptos_animated_for"
-version = "0.0.4"
+version = "0.1.0"
 dependencies = [
  "cfg-if",
  "futures",
