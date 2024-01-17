@@ -61,7 +61,3 @@ ci:
     just lint
     just fmt-check-examples
     just lint-examples
-
-_vscode-fmt:
-    # Using `leptosfmt --stdin --rustfmt` seems to add redundant newlines
-    leptosfmt --stdin | rustfmt
