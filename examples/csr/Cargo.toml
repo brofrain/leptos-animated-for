@@ -4,7 +4,7 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-getrandom = { version = "0.2.10", features = ["js"], optional = true }
-leptos = { version = "0.5.4", features = ["csr", "nightly"] }
+getrandom = { version = "0.2.12", features = ["js"], optional = true }
+leptos = { version = "0.6.0-beta", features = ["csr", "nightly"] }
 leptos_animated_for = { path = "../.." }
 rand = "0.8.5"

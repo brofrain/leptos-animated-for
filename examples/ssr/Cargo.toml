@@ -7,26 +7,25 @@ edition = "2021"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-axum = { version = "0.6.20", optional = true }
+axum = { version = "0.7.4", optional = true }
 console_error_panic_hook = "0.1.7"
 console_log = "1"
-cfg-if = "1"
-getrandom = { version = "0.2.10", features = ["js"], optional = true }
-leptos = { version = "0.5.4", features = ["nightly"] }
+getrandom = { version = "0.2.12", features = ["js"], optional = true }
+leptos = { version = "0.6.0-beta", features = ["nightly"] }
 leptos_animated_for = { path = "../.." }
-leptos_meta = { version = "0.5.4", features = ["nightly"] }
-leptos_axum = { version = "0.5.4", optional = true }
-leptos_router = { version = "0.5.4", features = ["nightly"] }
-log = "0.4.17"
+leptos_meta = { version = "0.6.0-beta", features = ["nightly"] }
+leptos_axum = { version = "0.6.0-beta", optional = true }
+leptos_router = { version = "0.6.0-beta", features = ["nightly"] }
+log = "0.4.20"
 rand = "0.8.5"
-simple_logger = "4.3.0"
-tokio = { version = "1.28.1", optional = true }
+simple_logger = "4.3.3"
+tokio = { version = "1.35.1", optional = true }
 tower = { version = "0.4.13", optional = true }
-tower-http = { version = "0.4", features = ["fs"], optional = true }
-wasm-bindgen = "0.2.84"
-thiserror = "1.0.40"
-tracing = { version = "0.1.37", optional = true }
-http = "0.2.9"
+tower-http = { version = "0.5.1", features = ["fs"], optional = true }
+wasm-bindgen = "0.2.90"
+thiserror = "1.0.56"
+tracing = { version = "0.1.40", optional = true }
+http = "1.0.0"
 
 [features]
 hydrate = [
@@ -53,13 +52,16 @@ denylist = ["axum", "tokio", "tower", "tower-http", "leptos_axum"]
 skip_feature_sets = [["ssr", "hydrate"]]
 
 [package.metadata.leptos]
-# The name used by wasm-bindgen/cargo-leptos for the JS/WASM bundle. Defaults to the crate name   
+# The name used by wasm-bindgen/cargo-leptos for the JS/WASM bundle. Defaults to the crate name
 output-name = "app"
+
 # The site root folder is where cargo-leptos generate all output. WARNING: all content of this folder will be erased on a rebuild. Use it in your server setup.
 site-root = "target/site"
+
 # The site-root relative folder where all compiled output (JS, WASM and CSS) is written
-# Defaults to pkg	
+# Defaults to pkg
 site-pkg-dir = "pkg"
+
 # The tailwind input file.
 #
 # Optional, Activates the tailwind build
@@ -67,8 +69,10 @@ tailwind-input-file = "style/tailwind.css"
 
 # [Optional] Files in the asset-dir will be copied to the site-root directory
 assets-dir = "public"
+
 # The IP and port (ex: 127.0.0.1:3000) where the server serves the content. Use it in your server setup.
 site-addr = "127.0.0.1:3000"
+
 # The port to use for automatic reload monitoring
 reload-port = 3001
 
