@@ -83,6 +83,7 @@ You need to utilize the `ssr` feature for the crate to work properly in a SSR pr
 - [ ] Detect duplicate keys for better developer experience
 - [ ] Add ability to define custom handlers when an element enters "before enter" / "enter" / "move" / "leave" state
 - [ ] Optional properties for explicit animation durations
+- [ ] Optional bool prop for enabling resize animations
 - [ ] Optional bool prop for assigning a static `z-index` to each child, so triggering a move transition before the previous one has finished doesn't cause overlapping elements to be chaotically moved from front to back and vice versa.
 
 ## License
