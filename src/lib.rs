@@ -5,7 +5,6 @@ cfg_if::cfg_if! {
         use leptos::{
             component,
             leptos_dom::Each,
-            tracing,
             IntoView,
             MaybeProp,
         };
@@ -19,10 +18,6 @@ cfg_if::cfg_if! {
             collections::{HashMap, HashSet},
             hash::Hash,
         };
-
-        #[cfg(debug_assertions)]
-        #[allow(unused_imports)]
-        use leptos::tracing;
 
         use leptos::{
             component,
