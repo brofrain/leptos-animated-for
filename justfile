@@ -1,16 +1,16 @@
 # Formats Rust files using rustfmt
-_fmt-rustfmt flag='':
+_fmt-rustfmt *args:
     #!/usr/bin/env sh
     (
         for f in `find src -name '*.rs'`; do
-            rustfmt $f {{ flag }} &
+            rustfmt $f {{ args }} &
         done
         wait
     )
 
 # Formats Leptos components using leptosfmt
-_fmt-leptosfmt flag='':
-    leptosfmt src/**/*.rs {{ flag }}
+_fmt-leptosfmt *args:
+    leptosfmt src/**/*.rs {{ args }}
 
 # Formats justfile
 _fmt-justfile:
