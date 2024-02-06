@@ -64,7 +64,7 @@ Check out `examples` directory for a complete code.
 
 ### SSR support
 
-It generally should just work. See the example `Cargo.toml` [configuration](https://github.com/brofrain/leptos-animated-for/blob/main/examples/ssr/Cargo.toml).
+It generally should just work. See this [example](https://github.com/brofrain/leptos-animated-for/blob/main/examples/ssr).
 
 ## Known issues
 
