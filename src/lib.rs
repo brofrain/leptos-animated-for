@@ -1,14 +1,5 @@
 cfg_if::cfg_if! {
-    if #[cfg(feature = "ssr")] {
-        use std::hash::Hash;
-
-        use leptos::{
-            component,
-            leptos_dom::Each,
-            IntoView,
-            MaybeProp,
-        };
-    } else {
+    if #[cfg(target_arch = "wasm32")] {
         mod animated_el;
         mod animator;
         mod untracked_classes;
@@ -42,10 +33,19 @@ cfg_if::cfg_if! {
                 prepare_leave,
             },
         };
+    } else {
+        use std::hash::Hash;
+
+        use leptos::{
+            component,
+            leptos_dom::Each,
+            IntoView,
+            MaybeProp,
+        };
     }
 }
 
-#[cfg(not(feature = "ssr"))]
+#[cfg(target_arch = "wasm32")]
 fn use_entering_children<Item, ChildFn, Child, KeyFn, Key>(
     key_fn: StoredValue<KeyFn>,
     children_fn: ChildFn,
@@ -107,8 +107,8 @@ where
 
 /// List-rendering component utilizing FLIP position transitions.
 /// Read the full guide [here](https://github.com/brofrain/leptos-animated-for).
-#[allow(clippy::module_name_repetitions)]
 #[allow(unused_variables)]
+#[allow(clippy::needless_pass_by_value)]
 #[component(transparent)]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
@@ -129,12 +129,7 @@ where
     KeyFn: Fn(&Item) -> Key + 'static,
     Item: 'static,
 {
-    #[cfg(feature = "ssr")]
-    {
-        Each::new(each, key, children)
-    }
-
-    #[cfg(not(feature = "ssr"))]
+    #[cfg(target_arch = "wasm32")]
     {
         let key_fn = StoredValue::new(key);
 
@@ -238,5 +233,10 @@ where
             move |item| with!(|key_fn| key_fn(item)),
             children_fn,
         )
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        Each::new(each, key, children)
     }
 }

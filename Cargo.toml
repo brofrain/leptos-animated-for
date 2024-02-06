@@ -1,6 +1,6 @@
 [package]
 name = "leptos_animated_for"
-version = "0.3.1"
+version = "0.4.0"
 edition = "2021"
 repository = "https://github.com/brofrain/leptos-animated-for"
 license = "MIT"
@@ -14,11 +14,49 @@ leptos = { version = "0.6.5" }
 wasm-bindgen = { version = "0.2.90" }
 web-sys = { version = "0.3.67", features = ["DomRect"] }
 
-[features]
-ssr = []
-
 [lints.rust]
 unsafe_code = "forbid"
 
 [lints.clippy]
-pedantic = "warn"
+pedantic = { level = "warn", priority = -1 }
+clone_on_ref_ptr = "warn"
+dbg_macro = "warn"
+deref_by_slicing = "warn"
+empty_drop = "warn"
+fallible_impl_from = "warn"
+float_cmp_const = "warn"
+fn_to_numeric_cast_any = "warn"
+get_unwrap = "warn"
+integer_division = "warn"
+lossy_float_literal = "warn"
+map_err_ignore = "warn"
+missing_const_for_fn = "warn"
+mod_module_files = "warn"
+multiple_inherent_impl = "warn"
+mutex_atomic = "warn"
+partial_pub_fields = "warn"
+print_stderr = "warn"
+print_stdout = "warn"
+pub_without_shorthand = "warn"
+rc_mutex = "warn"
+ref_patterns = "warn"
+redundant_clone = "warn"
+redundant_type_annotations = "warn"
+rest_pat_in_fully_bound_structs = "warn"
+semicolon_inside_block = "warn"
+str_to_string = "warn"
+string_to_string = "warn"
+suspicious_operation_groupings = "warn"
+suspicious_xor_used_as_pow = "warn"
+todo = "warn"
+trailing_empty_array = "warn"
+trait_duplication_in_bounds = "warn"
+try_err = "warn"
+unimplemented = "warn"
+unnecessary_self_imports = "warn"
+unneeded_field_pattern = "warn"
+unreachable = "warn"
+unseparated_literal_suffix = "warn"
+use_debug = "warn"
+use_self = "warn"
+verbose_file_reads = "warn"
