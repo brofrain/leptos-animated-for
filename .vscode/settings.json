@@ -1,6 +1,7 @@
 {
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.cargo.target": "wasm32-unknown-unknown",
+  "rust-analyzer.diagnostics.enable": false,
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": ["component"]
   },
