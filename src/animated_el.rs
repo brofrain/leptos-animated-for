@@ -12,7 +12,6 @@ pub trait AnimatedEl {
     fn set_important_style_property(&self, property: &str, value: &str);
     fn enable_instant_transition(&self);
     fn disable_instant_transition(&self);
-    fn set_empty_attribute(&self, attr: &str);
     fn clear_transform(&self);
 }
 
@@ -60,10 +59,6 @@ impl AnimatedEl for HtmlElement {
         self.style()
             .set_property("transition-duration", "")
             .unwrap();
-    }
-
-    fn set_empty_attribute(&self, attr: &str) {
-        self.set_attribute(attr, "").unwrap();
     }
 
     fn clear_transform(&self) {
