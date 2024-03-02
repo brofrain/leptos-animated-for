@@ -16,9 +16,8 @@ runs:
         restore-keys: ${{ runner.os }}-cargo-
 
     - name: Just setup
-      shell: bash
-      run: cargo install just@1.15.0
+      uses: extractions/setup-just@v2
 
     - name: Leptosfmt setup
       shell: bash
-      run: cargo install leptosfmt@0.1.17
+      run: cargo install leptosfmt@0.1.18
