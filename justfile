@@ -52,7 +52,7 @@ lint:
 # Lints examples with Clippy
 lint-examples:
     #!/usr/bin/env sh
-    # FIXME: as of Leptos 0.6.7, `#[component]` macro triggers `clippy::empty_docs`
+    # FIXME: as of Leptos 0.6.8, `#[component]` macro triggers `clippy::empty_docs`
     (cd examples/csr && cargo clippy -- -D warnings -A clippy::empty_docs)
     (cd examples/ssr && cargo clippy --features ssr -- -D warnings -A clippy::empty_docs)
     (cd examples/ssr && cargo clippy --lib --features hydrate -- -D warnings -A clippy::empty_docs)

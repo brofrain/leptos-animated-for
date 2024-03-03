@@ -1,6 +1,6 @@
 [package]
 name = "leptos_animated_for"
-version = "0.4.3"
+version = "0.4.4"
 edition = "2021"
 repository = "https://github.com/brofrain/leptos-animated-for"
 license = "MIT"
@@ -10,7 +10,7 @@ keywords = ["leptos", "animations", "dom", "web", "wasm"]
 [dependencies]
 cfg-if = "1.0.0"
 futures = "0.3.30"
-leptos = { version = "0.6.7" }
+leptos = { version = "0.6.8" }
 wasm-bindgen = { version = "0.2.91" }
 web-sys = { version = "0.3.68", features = ["DomRect"] }
 
