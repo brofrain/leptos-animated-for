@@ -93,7 +93,7 @@ fn App() -> impl IntoView {
         items.update(|items| {
             let item = create_new_item(());
             rng.update_value(|rng| {
-                items.insert(rng.gen_range(0..items.len()), item);
+                items.insert(rng.gen_range(0..=items.len()), item);
             });
         });
     };
@@ -156,5 +156,7 @@ fn App() -> impl IntoView {
 }
 
 fn main() {
+    _ = console_log::init_with_level(log::Level::Debug);
+    console_error_panic_hook::set_once();
     mount_to_body(App);
 }

@@ -4,7 +4,10 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
+console_error_panic_hook = "0.1.7"
+console_log = "1"
 getrandom = { version = "0.2.12", features = ["js"], optional = true }
 leptos = { version = "0.6.9", features = ["csr", "nightly"] }
 leptos_animated_for = { path = "../.." }
+log = "0.4.20"
 rand = "0.8.5"
