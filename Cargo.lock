@@ -507,7 +507,6 @@ dependencies = [
 name = "leptos_animated_for"
 version = "0.4.7"
 dependencies = [
- "cfg-if",
  "futures",
  "leptos",
  "wasm-bindgen",

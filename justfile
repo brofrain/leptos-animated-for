@@ -47,15 +47,15 @@ fmt-check-examples:
 
 # Lints source with Clippy
 lint:
-    cargo clippy -- -D warnings
+    cargo clippy --lib -- -D warnings
+    cargo clippy --lib --target wasm32-unknown-unknown -- -D warnings
 
 # Lints examples with Clippy
 lint-examples:
     #!/usr/bin/env sh
-    # FIXME: as of Leptos 0.6.9, `#[component]` macro triggers `clippy::empty_docs`
-    (cd examples/csr && cargo clippy -- -D warnings -A clippy::empty_docs)
-    (cd examples/ssr && cargo clippy --features ssr -- -D warnings -A clippy::empty_docs)
-    (cd examples/ssr && cargo clippy --lib --features hydrate -- -D warnings -A clippy::empty_docs)
+    (cd examples/csr && cargo clippy)
+    (cd examples/ssr && cargo clippy --features ssr)
+    (cd examples/ssr && cargo clippy --lib --features hydrate)
 
 ci:
     just fmt-check

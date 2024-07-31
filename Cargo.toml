@@ -8,7 +8,6 @@ description = "<AnimatedFor /> component utilizing FLIP position transitions for
 keywords = ["leptos", "animations", "dom", "web", "wasm"]
 
 [dependencies]
-cfg-if = "1.0.0"
 futures = "0.3.30"
 leptos = { version = "0.6.13" }
 wasm-bindgen = { version = "0.2.92" }
