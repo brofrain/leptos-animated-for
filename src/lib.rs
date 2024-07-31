@@ -77,7 +77,9 @@ where
 
     let initial_children_mounted = StoredValue::new(false);
     spawn_local(async move {
-        initial_children_mounted.set_value(true);
+        // using `try_set_value` over `set_value` to avoid panic if the
+        // component is disposed before mounting
+        initial_children_mounted.try_set_value(true);
     });
 
     (el_per_key, animator, move |item| {
@@ -98,6 +100,13 @@ where
 
                 spawn_local(async move {
                     next_tick().await;
+
+                    // check if the component has been disposed
+                    if initial_children_mounted.try_with_value(|_| ()).is_none()
+                    {
+                        return;
+                    }
+
                     animator.start_enter(&key, &el);
                 });
             }
@@ -187,6 +196,11 @@ where
             });
 
             spawn_local(async move {
+                // check if the component has been disposed in the meantime
+                if el_per_key.try_with_value(|_| ()).is_none() {
+                    return;
+                }
+
                 animator.clear_transitions();
 
                 if let Some(parent) = leaving_els_parent {
