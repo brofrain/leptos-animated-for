@@ -11,11 +11,11 @@ axum = { version = "0.7.5", optional = true }
 console_error_panic_hook = "0.1.7"
 console_log = "1"
 getrandom = { version = "0.2.15", features = ["js"], optional = true }
-leptos = { version = "0.6.12", features = ["nightly"] }
+leptos = { version = "0.6.13", features = ["nightly"] }
 leptos_animated_for = { path = "../.." }
-leptos_meta = { version = "0.6.12", features = ["nightly"] }
-leptos_axum = { version = "0.6.12", optional = true }
-leptos_router = { version = "0.6.12", features = ["nightly"] }
+leptos_meta = { version = "0.6.13", features = ["nightly"] }
+leptos_axum = { version = "0.6.13", optional = true }
+leptos_router = { version = "0.6.13", features = ["nightly"] }
 log = "0.4.21"
 rand = "0.8.5"
 simple_logger = "4.3.3"
