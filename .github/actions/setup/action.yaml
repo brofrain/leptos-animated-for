@@ -20,4 +20,4 @@ runs:
 
     - name: Leptosfmt setup
       shell: bash
-      run: cargo install leptosfmt@0.1.18
+      run: cargo install leptosfmt@0.1.30
