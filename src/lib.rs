@@ -120,7 +120,7 @@ where
 /// Read the full guide [here](https://github.com/brofrain/leptos-animated-for).
 #[allow(unused_variables)]
 #[allow(clippy::needless_pass_by_value)]
-#[component(transparent)]
+#[component]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
     key: KeyFn,
