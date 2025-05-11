@@ -1,3 +1,8 @@
+## ⚠️ This crate is no longer maintained ⚠️
+
+I've created [leptos-animate](https://github.com/brofrain/leptos-animate) as a successor to this crate with a more flexible API and more features.\
+Consider using it instead.
+
 # `<AnimatedFor />` component for [Leptos](https://leptos.dev/)
 
 [FLIP](https://aerotwist.com/blog/flip-your-animations/) animations for element and component groups inspired by Vue's [`<TransitionGroup>`](https://vuejs.org/guide/built-ins/transition-group.html).
